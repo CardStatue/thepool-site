@@ -1,16 +1,16 @@
-<title>The Pool — memecoins paired with tokenized stocks</title>
-<meta name="description" content="A Solana launchpad where you open the pool an asset trades in, then launch coins paired to it. Not a fixed menu. Launching soon.">
+<title>The Pool — open the pool, keep the fees</title>
+<meta name="description" content="A Solana launchpad where you open the pool an asset trades in — and keep the fees on every coin launched against it. Not a fixed menu. Launching soon.">
 <meta name="theme-color" content="#0E86AF">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:title" content="The Pool">
-<meta property="og:description" content="Open the pool. Launch the coin. Pair a memecoin to any tokenized asset on Solana.">
+<meta property="og:description" content="Open the pool. Keep the fees. Pair a memecoin to any tokenized asset on Solana.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thepool.fun">
 <meta property="og:image" content="https://thepool.fun/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Pool">
-<meta name="twitter:description" content="Open the pool. Launch the coin. Pair a memecoin to any tokenized asset on Solana.">
+<meta name="twitter:description" content="Open the pool. Keep the fees. Pair a memecoin to any tokenized asset on Solana.">
 <meta name="twitter:image" content="https://thepool.fun/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -319,7 +319,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     </a>
     <div class="nav-links">
       <a href="#how">How it works</a>
-      <a href="#stocks">Stocks</a>
+      <a href="#own">Ownership</a>
+      <a href="#stocks">Assets</a>
     </div>
     <button class="btn" id="toggleApp">Open app</button>
   </div>
@@ -327,8 +328,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
 
 <main id="landing">
   <div class="wrap hero">
-    <h1 class="hh">Open the pool.<br>Launch the <em>coin</em>.</h1>
-    <p class="hsub">Pair a memecoin to any tokenized asset. If the market doesn't exist yet, you make it.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
+    <h1 class="hh">Open the pool.<br>Keep the <em>fees</em>.</h1>
+    <p class="hsub">Pair a memecoin to any tokenized asset. If the market doesn't exist yet, you make it &mdash; and every coin launched there pays you.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
     <div class="hcta">
       <button class="btn" id="heroOpen">Open app</button>
       <a class="btn btn-ghost" href="#how">How it works</a>
@@ -350,7 +351,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M7 15h7M7 19h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
         <h3>Open a pool</h3>
-        <p>Any tokenized asset. You make the market.</p>
+        <p>Any tokenized asset. You make the market, and it stays yours.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -372,6 +373,40 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     </div>
   </section>
 
+  <section class="wrap" id="own">
+    <div class="shead">
+      <div class="slabel">Ownership</div>
+      <h2>First one in owns the lane.</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <path d="M20 5.5 32.5 11v9.5c0 7.2-5.2 12.3-12.5 14.5C12.7 32.8 7.5 27.7 7.5 20.5V11L20 5.5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M15 20.2l3.6 3.6 6.4-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Your pool stays yours</h3>
+        <p>You sign it from your own wallet and hold the position. Every trade that crosses it pays you, and you can pull out whenever you want.</p>
+      </div>
+      <div class="step">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <circle cx="20" cy="20" r="13.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M20 12v8l5.5 3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Every coin after you pays you</h3>
+        <p>Open an asset's pool first and you become that asset's fee partner on chain. Every coin anyone launches against it earns you a share, for as long as it trades.</p>
+      </div>
+      <div class="step">
+        <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect x="7.5" y="17" width="25" height="16" rx="3.5" stroke="currentColor" stroke-width="1.8"/>
+          <path d="M13.5 17v-4.5a6.5 6.5 0 0 1 13 0V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+        <h3>We never hold your money</h3>
+        <p>We build the transaction and you sign it. No deposit, no vault, no key of ours anywhere near your funds.</p>
+      </div>
+    </div>
+    <p class="rcap" style="margin-top:34px">Keep the pool deep and the lane is yours. Let it dry up and the asset opens back up for someone else &mdash; coins already trading keep paying you either way.</p>
+  </section>
+
   <section class="wrap">
     <div class="shead">
       <div class="slabel">Routing</div>
@@ -380,7 +415,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     <div class="route">
       <span class="node">SOL</span>
       <span class="arrow"></span>
-      <span class="node hl">Our pool</span>
+      <span class="node hl">The pool</span>
       <span class="arrow"></span>
       <span class="node">Stock</span>
       <span class="arrow"></span>
@@ -400,11 +435,11 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
 
   <section class="wrap" id="stocks">
     <div class="shead">
-      <div class="slabel">Stocks</div>
+      <div class="slabel">Assets</div>
       <h2>Any asset. Not a fixed menu.</h2>
     </div>
     <div class="grid" id="stockGridLanding"></div>
-    <p class="rcap" style="margin-top:34px">Every other launchpad gives you a list. Here, if the pool isn't there, you open it — and earn its fees.</p>
+    <p class="rcap" style="margin-top:34px">Every other launchpad hands you a list and keeps the fees. Here you open what isn't there, and the fees are yours.</p>
   </section>
 
   <footer>
