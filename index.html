@@ -332,7 +332,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
 <main id="landing">
   <div class="wrap hero">
     <h1 class="hh">Open the pool.<br>Keep the <em>fees</em>.</h1>
-    <p class="hsub">Open a pool for your coin. Every coin launched against it pays you, for as long as it trades.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
+    <p class="hsub">Mint a pool, and every coin launched into it pays you — for as long as it trades.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
     <div class="hcta">
       <button class="btn" id="heroOpen">Open app</button>
       <a class="btn btn-ghost" href="#how">How it works</a>
@@ -353,8 +353,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <rect x="22" y="9" width="15" height="22" rx="3" stroke="currentColor" stroke-width="1.8" opacity=".35"/>
           <path d="M7 15h7M7 19h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
-        <h3>Open a pool</h3>
-        <p>Pick your coin, seed it against SOL. You make the market, and it stays yours.</p>
+        <h3>Mint a pool</h3>
+        <p>Name it, and it’s minted and paired to SOL. It’s a coin and a lane at the same time.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -362,8 +362,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M14 20.5c2 0 2 2 4 2s2-2 4-2 2 2 4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           <path d="M20 7v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".35"/>
         </svg>
-        <h3>Launch coins on it</h3>
-        <p>Yours or anyone’s, paired to your pool. One billion supply each.</p>
+        <h3>Link a coin — or don’t</h3>
+        <p>Launch one on it straight away, or leave it open and let other people launch into it.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -442,7 +442,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <h2>No menu. You open it.</h2>
     </div>
     <div class="grid" id="poolGridLanding"></div>
-    <p class="rcap" style="margin-top:34px">Every other launchpad hands you a list of things to pair against and keeps the fees. Here there is no list &mdash; you open the pool, and the fees are yours.</p>
+    <p class="rcap" style="margin-top:34px">Every pool is also a coin, so it trades from the moment it exists. Every other launchpad hands you a list to pair against and keeps the fees. Here there is no list &mdash; you mint the pool, and the fees are yours.</p>
   </section>
 
   <footer>
@@ -474,7 +474,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-view="home">Explore</button>
         <button class="tab" role="tab" aria-selected="false" data-view="launch">Launch</button>
-        <button class="tab" role="tab" aria-selected="false" data-view="fund">Open a pool</button>
+        <button class="tab" role="tab" aria-selected="false" data-view="fund">Mint a pool</button>
       </div>
     </div>
 
@@ -485,10 +485,10 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div id="lbApp"></div>
       </div>
       <div class="panel">
-        <div class="phead"><h3>Live coins</h3><span class="hint">24h volume</span></div>
+        <div class="phead"><h3>Pools &amp; coins</h3><span class="hint">every pool is also a coin</span></div>
         <div class="tblw">
           <table>
-            <thead><tr><th>Coin</th><th>Paired to</th><th>Market cap</th><th>24h</th><th>vs pool</th><th>Curve</th><th>Age</th></tr></thead>
+            <thead><tr><th>Name</th><th>Kind</th><th>Paired to</th><th>Market cap</th><th>24h</th><th>vs pool</th><th>Curve</th><th>Age</th></tr></thead>
             <tbody id="coinRows"></tbody>
           </table>
         </div>
@@ -601,12 +601,10 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div class="panel">
           <div class="fs">
             <div class="fsn">01</div>
-            <h3>Open a pool</h3>
-            <div class="picker" id="fPicker"></div>
-            <div style="margin-top:16px">
-              <label class="fl" for="fMint">Or paste any token mint</label>
-              <div class="field"><input id="fMint" type="text" placeholder="Mint address" autocomplete="off"></div>
-            </div>
+            <h3>Name the pool</h3>
+            <div class="field"><input id="fMint" type="text" placeholder="CHLORINE" autocomplete="off"></div>
+            <p class="disc" style="text-align:left;margin-top:12px">The pool is minted as its own coin and paired to SOL. Pick a name people will want to launch into.</p>
+            <div class="picker hidden" id="fPicker"></div>
           </div>
           <div class="fs">
             <div class="fsn">02</div>
@@ -617,7 +615,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
                 <div class="field"><input id="fSol" type="text" inputmode="decimal" value="25"><span class="unit">SOL</span></div>
               </div>
               <div>
-                <label class="fl" for="fToken">Token side</label>
+                <label class="fl" for="fToken">Pool side</label>
                 <div class="field"><input id="fToken" type="text" inputmode="decimal" value="25"><span class="unit">SOL eq.</span></div>
               </div>
             </div>
@@ -625,8 +623,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           </div>
           <div class="fs">
             <div class="fsn">03</div>
-            <h3>What you earn</h3>
-            <p class="disc" style="text-align:left;margin-top:0">Every trade routed through your pool pays fees. They accrue to your position and compound back into the pool. Your side is withdrawable at any time.</p>
+            <h3>Link a coin — optional</h3>
+            <p class="disc" style="text-align:left;margin-top:0">Launch your first coin into the pool now, or skip it and leave the pool open for other people. Either way you earn on every coin that ever launches into it, and your side stays withdrawable.</p>
           </div>
         </div>
         <div class="panel summary">
@@ -638,7 +636,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
             <div class="sl"><span>Opens for launches</span><span id="fsOpen">Yes</span></div>
             <div class="sl"><span>Pool type</span><span>DAMM v2</span></div>
             <div class="sl"><span>Creation cost</span><span>0.022 SOL</span></div>
-            <div class="sl"><span>Earns</span><span>Trading fees</span></div>
+            <div class="sl"><span>Earns</span><span id="fsEarn">Trading fees</span></div>
             <button class="btn" id="fundBtn" style="width:100%;justify-content:center;margin-top:20px;padding:13px">Connect wallet</button>
             <p class="disc">Preview only — no transaction is sent.</p>
           </div>
@@ -709,8 +707,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     var note = document.createElement("div");
     note.className = "poolnote";
     note.innerHTML = clickable
-      ? "No other pools are open yet. Open one and it is yours."
-      : "No pools are open yet. $POOLS will be the first; the rest are opened by whoever gets there first.";
+      ? "No other pools yet. Mint one and it is yours."
+      : "No pools yet. $POOLS will be the first; the rest get minted by whoever gets there first.";
     h.appendChild(note);
   }
 
@@ -738,23 +736,37 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     }
   }
 
+  // A pool token is a coin too, so it belongs in this table beside the coins
+  // launched into it. Its own pair is SOL and it has no pool to be scored against.
+  function allRows(){
+    var out = [];
+    for(var i=0;i<POOLS.length;i++){
+      var p = POOLS[i];
+      out.push({n:p.t, s:"SOL", mc:0, ch:p.ch, prog:null, age:"—", c:"#0E86AF",
+                ca:"Example — not a real address", isPool:true});
+    }
+    return out.concat(COINS);
+  }
+
   function renderCoins(){
     var tb = $("coinRows"); tb.innerHTML = "";
-    for(var i=0;i<COINS.length;i++){
+    var rows = allRows();
+    for(var i=0;i<rows.length;i++){
       (function(c){
         var tr = document.createElement("tr");
         tr.innerHTML =
           '<td><div class="cid"><div class="av" style="background:'+c.c+'">'+c.n.charAt(0)+'</div>'+
           '<div class="cname">'+c.n+'</div></div></td>'+
+          '<td>'+(c.isPool?'<span class="pill live">Pool</span>':'<span class="pill wait">Coin</span>')+'</td>'+
           '<td class="mono">'+c.s+'</td>'+
           '<td class="mono">'+fmtUSD(c.mc)+'</td>'+
           '<td class="'+(c.ch>=0?"up":"dn")+'">'+(c.ch>=0?"+":"")+c.ch.toFixed(1)+'%</td>'+
-          '<td class="'+(spread(c)>=0?"up":"dn")+'">'+fmtSpread(spread(c))+'</td>'+
-          '<td><div class="bar"><i style="width:'+c.prog+'%"></i></div></td>'+
+          '<td class="'+(c.isPool?"":(spread(c)>=0?"up":"dn"))+'">'+(c.isPool?'<span style="color:var(--muted)">—</span>':fmtSpread(spread(c)))+'</td>'+
+          '<td>'+(c.prog===null?'<span style="color:var(--muted)">—</span>':'<div class="bar"><i style="width:'+c.prog+'%"></i></div>')+'</td>'+
           '<td class="mono" style="color:var(--muted)">'+c.age+'</td>';
-        tr.addEventListener("click", function(){ openCoin(c); });
+        if(!c.isPool) tr.addEventListener("click", function(){ openCoin(c); });
         tb.appendChild(tr);
-      })(COINS[i]);
+      })(rows[i]);
     }
   }
 
@@ -888,7 +900,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   function goLaunch(t){ if(t) picked = t; renderPicker(); sync(); setTab("launch"); }
 
   // ---- fund a pool ----
-  var fPicked = "GOOGLx";
+  var fPicked = "";
   function renderFPicker(){
     var h = $("fPicker"); h.innerHTML = "";
     for(var i=0;i<POOLS.length;i++){
@@ -904,13 +916,15 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     }
   }
   function fSync(){
-    var custom = $("fMint").value.trim();
-    var label = custom ? (custom.length > 12 ? custom.slice(0,4)+"…"+custom.slice(-4) : custom) : fPicked;
+    // The pool's name IS the token now — there is nothing to pick from.
+    var custom = $("fMint").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 10);
+    var label = custom || "YOURPOOL";
     var a = parseFloat($("fSol").value); if(isNaN(a) || a < 0) a = 0;
     var b = parseFloat($("fToken").value); if(isNaN(b) || b < 0) b = 0;
     var total = a + b;
     $("fsTicker").textContent = label;
     $("fsPair").textContent = label + " / SOL";
+    $("fsEarn") && ($("fsEarn").textContent = "Fees on every coin in " + label);
     $("fsDepth").textContent = total.toFixed(total % 1 ? 1 : 0) + " SOL";
     $("fsOpen").textContent = total >= 50 ? "Yes" : "Not yet";
     $("fsOpen").style.color = total >= 50 ? "var(--live)" : "var(--pending)";
@@ -926,7 +940,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     var tabs = document.querySelectorAll(".tab");
     for(var i=0;i<tabs.length;i++) tabs[i].setAttribute("aria-selected", tabs[i].getAttribute("data-view")===v);
     if(v==="home"){ show("viewHome"); $("appTitle").textContent = "Pools"; }
-    else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Open a pool"; }
+    else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Mint a pool"; }
     else { show("viewLaunch"); $("appTitle").textContent = "Launch"; }
   }
   function openApp(){
