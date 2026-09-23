@@ -193,6 +193,8 @@ button.pool:hover{border-color:var(--accent);transform:translateY(-2px)}
   border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.6;color:var(--muted);
   max-width:760px;margin-inline:auto;background:var(--surface)}
 .notice strong{color:var(--ink);font-weight:650}
+.ghost td{opacity:.45}
+.ghostav{background:var(--surface-2)}
 .poolnote{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:22px 20px;
   color:var(--muted);font-size:13.5px;line-height:1.55;text-align:center;align-self:stretch;
   display:flex;align-items:center;justify-content:center}
@@ -672,15 +674,10 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     {t:"POOLS", co:"The Pools", iss:"opened by us", depth:0, coins:0, live:false, ch:0}
   ];
   var MAXD = 450;
-  // Example data for the preview only. Every one of these is made up.
-  var COINS = [
-    {n:"HIGHDIVE", s:"POOLS", mc:215000, ch:112.6, prog:78, age:"4h",  c:"#0E86AF", ca:"Example — not a real address"},
-    {n:"FLOATIE",  s:"POOLS", mc:118700, ch:64.2,  prog:52, age:"11h", c:"#10A08F", ca:"Example — not a real address"},
-    {n:"PUDDLE",   s:"POOLS", mc:42100,  ch:18.4,  prog:24, age:"2h",  c:"#0B5E7D", ca:"Example — not a real address"},
-    {n:"CHLORINE", s:"POOLS", mc:27400,  ch:-6.1,  prog:16, age:"1d",  c:"#5C8497", ca:"Example — not a real address"},
-    {n:"SKIMMER",  s:"POOLS", mc:9200,   ch:3.8,   prog:7,  age:"3h",  c:"#A98246", ca:"Example — not a real address"},
-    {n:"NOODLE",   s:"POOLS", mc:6800,   ch:-12.0, prog:5,  age:"6h",  c:"#8A6E96", ca:"Example — not a real address"}
-  ];
+  // No coins exist yet. Nothing invented goes in this array — when coins are
+  // real they come from the DB. Until then the table shows TESTING placeholders.
+  var COINS = [];
+  var PLACEHOLDERS = 4;
   var $ = function(id){ return document.getElementById(id); };
   function fmtUSD(n){
     if(n>=1000000) return "$"+(n/1000000).toFixed(2)+"M";
@@ -735,6 +732,15 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   function renderLeaderboard(host, limit){
     var h = $(host); if(!h) return;
     h.innerHTML = "";
+    if(!COINS.length){
+      var e = document.createElement("div");
+      e.className = "lbr";
+      e.style.gridTemplateColumns = "1fr";
+      e.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:14px;padding:10px 0">'+
+        'Testing. The board fills when the first coins launch.</div>';
+      h.appendChild(e);
+      return;
+    }
     var ranked = COINS.slice().sort(function(a,b){ return spread(b) - spread(a); });
     var n = limit ? Math.min(limit, ranked.length) : ranked.length;
     for(var i=0;i<n;i++){
@@ -759,10 +765,11 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     var out = [];
     for(var i=0;i<POOLS.length;i++){
       var p = POOLS[i];
-      out.push({n:p.t, s:"SOL", mc:0, ch:p.ch, prog:null, age:"—", c:"#0E86AF",
-                ca:"Example — not a real address", isPool:true});
+      out.push({n:p.t, s:"SOL", mc:0, ch:p.ch, prog:null, age:"—", c:"#0E86AF", isPool:true, live:p.live});
     }
-    return out.concat(COINS);
+    out = out.concat(COINS);
+    for(var j=0;j<PLACEHOLDERS;j++) out.push({isPlaceholder:true});
+    return out;
   }
 
   function renderMine(){
@@ -789,13 +796,24 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     for(var i=0;i<rows.length;i++){
       (function(c){
         var tr = document.createElement("tr");
+        if(c.isPlaceholder){
+          tr.className = "ghost";
+          tr.innerHTML =
+            '<td><div class="cid"><div class="av ghostav"></div>'+
+            '<div class="cname" style="color:var(--muted)">testing</div></div></td>'+
+            '<td><span class="pill wait">Testing</span></td>'+
+            '<td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>'+
+            '<td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>';
+          tb.appendChild(tr);
+          return;
+        }
         tr.innerHTML =
           '<td><div class="cid"><div class="av" style="background:'+c.c+'">'+c.n.charAt(0)+'</div>'+
           '<div class="cname">'+c.n+'</div></div></td>'+
           '<td>'+(c.isPool?'<span class="pill live">Pool</span>':'<span class="pill wait">Coin</span>')+'</td>'+
           '<td class="mono">'+c.s+'</td>'+
-          '<td class="mono">'+fmtUSD(c.mc)+'</td>'+
-          '<td class="'+(c.ch>=0?"up":"dn")+'">'+(c.ch>=0?"+":"")+c.ch.toFixed(1)+'%</td>'+
+          '<td class="mono">'+(c.live===false?'<span style="color:var(--muted)">—</span>':fmtUSD(c.mc))+'</td>'+
+          '<td class="'+(c.live===false?"mono":(c.ch>=0?"up":"dn"))+'">'+(c.live===false?'<span style="color:var(--muted)">—</span>':((c.ch>=0?"+":"")+c.ch.toFixed(1)+'%'))+'</td>'+
           '<td class="'+(c.isPool?"":(spread(c)>=0?"up":"dn"))+'">'+(c.isPool?'<span style="color:var(--muted)">—</span>':fmtSpread(spread(c)))+'</td>'+
           '<td>'+(c.prog===null?'<span style="color:var(--muted)">—</span>':'<div class="bar"><i style="width:'+c.prog+'%"></i></div>')+'</td>'+
           '<td class="mono" style="color:var(--muted)">'+c.age+'</td>';
