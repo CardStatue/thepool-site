@@ -505,7 +505,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div class="phead"><h3>Your positions</h3><span class="hint">withdraw any time</span></div>
         <div class="tblw">
           <table>
-            <thead><tr><th>Pool</th><th>Your side</th><th>Fees earned</th><th>Locked</th><th></th></tr></thead>
+            <thead><tr><th>Pool</th><th>Your side</th><th>Fees earned</th><th></th></tr></thead>
             <tbody id="mineRows"></tbody>
           </table>
         </div>
@@ -772,7 +772,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     tb.innerHTML = "";
     // Preview only. With a wallet connected this lists real positions read from
     // chain — see src/pool/withdraw.ts listPositions().
-    var rows = [{pool:"POOLS", side:"50.0 SOL", fees:"0.00 SOL", locked:"No"}];
+    var rows = [{pool:"POOLS", side:"50.0 SOL", fees:"0.00 SOL"}];
     for(var i=0;i<rows.length;i++){
       var r = rows[i];
       var tr = document.createElement("tr");
@@ -780,7 +780,6 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         '<td class="mono">'+r.pool+'</td>'+
         '<td class="mono">'+r.side+'</td>'+
         '<td class="mono">'+r.fees+'</td>'+
-        '<td class="mono">'+r.locked+'</td>'+
         '<td style="text-align:right"><button class="btn btn-ghost" style="padding:7px 14px;font-size:13px">Withdraw</button></td>';
       tb.appendChild(tr);
     }
