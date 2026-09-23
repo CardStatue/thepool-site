@@ -1,16 +1,16 @@
-<title>The Pool — open the pool, keep the fees</title>
-<meta name="description" content="A Solana launchpad where you open the pool an asset trades in — and keep the fees on every coin launched against it. Not a fixed menu. Launching soon.">
+<title>The Pools — open the pool, keep the fees</title>
+<meta name="description" content="A Solana launchpad where you open a pool for your coin — and keep the fees on every coin launched against it. Launching soon.">
 <meta name="theme-color" content="#0E86AF">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <meta property="og:title" content="The Pool">
-<meta property="og:description" content="Open the pool. Keep the fees. Pair a memecoin to any tokenized asset on Solana.">
+<meta property="og:description" content="Open the pool. Keep the fees. Open a pool for your coin on Solana and earn on every coin launched against it.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://thepool.fun">
 <meta property="og:image" content="https://thepool.fun/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Pool">
-<meta name="twitter:description" content="Open the pool. Keep the fees. Pair a memecoin to any tokenized asset on Solana.">
+<meta name="twitter:description" content="Open the pool. Keep the fees. Open a pool for your coin on Solana and earn on every coin launched against it.">
 <meta name="twitter:image" content="https://thepool.fun/og.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -124,7 +124,7 @@ h1.hh em{font-style:normal;color:var(--accent)}
 .hsub{margin-top:26px;font-size:19px;color:var(--ink-2);max-width:40ch;margin-inline:auto}
 .hcta{margin-top:36px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
-/* floating stock tiles */
+/* floating pool tiles */
 .tiles{margin-top:80px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .tile{
   background:var(--surface);border:1px solid var(--line);border-radius:14px;
@@ -178,17 +178,20 @@ section{padding-block:104px}
 .lbv.win{color:var(--live)}
 .lbv.lose{color:var(--down)}
 
-/* stocks */
+/* pools */
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 @media (max-width:880px){ .grid{grid-template-columns:repeat(2,1fr)} }
 @media (max-width:460px){ .grid{grid-template-columns:1fr} }
-.stock{
+.pool{
   border:1px solid var(--line);border-radius:14px;background:var(--surface);padding:20px;
   display:flex;flex-direction:column;gap:16px;text-align:left;width:100%;
   transition:border-color .15s ease, transform .15s ease;
 }
-button.stock:hover{border-color:var(--accent);transform:translateY(-2px)}
-.stock.listed{background:transparent;border-style:dashed}
+button.pool:hover{border-color:var(--accent);transform:translateY(-2px)}
+.pool.listed{background:transparent;border-style:dashed}
+.poolnote{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:22px 20px;
+  color:var(--muted);font-size:13.5px;line-height:1.55;text-align:center;align-self:stretch;
+  display:flex;align-items:center;justify-content:center}
 .stop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
 .tk{font-family:var(--font-mono);font-size:15px;font-weight:700;letter-spacing:-.02em}
 .co{font-size:12.5px;color:var(--muted);margin-top:3px}
@@ -315,12 +318,12 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <path d="M3.4 13.2c1.6 0 1.6 1.9 3.2 1.9s1.6-1.9 3.2-1.9 1.6 1.9 3.2 1.9 1.6-1.9 3.2-1.9 1.6 1.9 3.2 1.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M3.4 17.6c1.6 0 1.6 1.9 3.2 1.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".4"/>
       </svg>
-      The Pool
+      The Pools
     </a>
     <div class="nav-links">
       <a href="#how">How it works</a>
       <a href="#own">Ownership</a>
-      <a href="#stocks">Assets</a>
+      <a href="#pools">Pools</a>
     </div>
     <button class="btn" id="toggleApp">Open app</button>
   </div>
@@ -329,7 +332,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
 <main id="landing">
   <div class="wrap hero">
     <h1 class="hh">Open the pool.<br>Keep the <em>fees</em>.</h1>
-    <p class="hsub">Pair a memecoin to any tokenized asset. If the market doesn't exist yet, you make it &mdash; and every coin launched there pays you.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
+    <p class="hsub">Open a pool for your coin. Every coin launched against it pays you, for as long as it trades.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
     <div class="hcta">
       <button class="btn" id="heroOpen">Open app</button>
       <a class="btn btn-ghost" href="#how">How it works</a>
@@ -341,7 +344,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   <section class="wrap" id="how">
     <div class="shead">
       <div class="slabel">How it works</div>
-      <h2>Make the market. Then the coin.</h2>
+      <h2>Make the market. Then the coins.</h2>
     </div>
     <div class="steps">
       <div class="step">
@@ -351,7 +354,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M7 15h7M7 19h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg>
         <h3>Open a pool</h3>
-        <p>Any tokenized asset. You make the market, and it stays yours.</p>
+        <p>Pick your coin, seed it against SOL. You make the market, and it stays yours.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -359,8 +362,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M14 20.5c2 0 2 2 4 2s2-2 4-2 2 2 4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
           <path d="M20 7v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" opacity=".35"/>
         </svg>
-        <h3>Launch a coin</h3>
-        <p>Paired to that asset. One billion supply.</p>
+        <h3>Launch coins on it</h3>
+        <p>Yours or anyone’s, paired to your pool. One billion supply each.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -368,7 +371,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M20 22V7m0 0-5 5m5-5 5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <h3>Trade in SOL</h3>
-        <p>One signature. Buyers never touch the asset.</p>
+        <p>One signature. Buyers never touch the pool token.</p>
       </div>
     </div>
   </section>
@@ -393,7 +396,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <path d="M20 12v8l5.5 3.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <h3>Every coin after you pays you</h3>
-        <p>Open an asset's pool first and you become that asset's fee partner on chain. Every coin anyone launches against it earns you a share, for as long as it trades.</p>
+        <p>Open a coin's pool first and you become its fee partner on chain. Every coin anyone launches against it earns you a share, for as long as it trades.</p>
       </div>
       <div class="step">
         <svg class="glyph" viewBox="0 0 40 40" fill="none" aria-hidden="true">
@@ -404,7 +407,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <p>We build the transaction and you sign it. No deposit, no vault, no key of ours anywhere near your funds.</p>
       </div>
     </div>
-    <p class="rcap" style="margin-top:34px">Keep the pool deep and the lane is yours. Let it dry up and the asset opens back up for someone else &mdash; coins already trading keep paying you either way.</p>
+    <p class="rcap" style="margin-top:34px">Keep the pool deep and the lane is yours. Let it dry up and it opens back up for someone else &mdash; coins already trading keep paying you either way.</p>
   </section>
 
   <section class="wrap">
@@ -417,11 +420,11 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <span class="arrow"></span>
       <span class="node hl">The pool</span>
       <span class="arrow"></span>
-      <span class="node">Stock</span>
+      <span class="node">Pool token</span>
       <span class="arrow"></span>
       <span class="node">Your coin</span>
     </div>
-    <p class="rcap">One signature. You never hold the stock, and you never see the leg in between.</p>
+    <p class="rcap">One signature. You never hold the pool token, and you never see the leg in between.</p>
   </section>
 
   <section class="wrap" id="beating">
@@ -429,17 +432,17 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <div class="slabel">Scoreboard</div>
       <h2>Every coin has a benchmark.</h2>
     </div>
-    <div class="lbwrap" id="lbLanding"><div class="lbr" style="grid-template-columns:1fr"><div style="text-align:center;color:var(--muted);font-size:14.5px;padding:8px 0">Every coin is scored against the stock it trades on.<br>The board fills when the first coins launch.</div></div></div>
-    <p class="rcap" style="margin-top:34px">Paired to a stock, a coin has something to beat. We keep score.</p>
+    <div class="lbwrap" id="lbLanding"><div class="lbr" style="grid-template-columns:1fr"><div style="text-align:center;color:var(--muted);font-size:14.5px;padding:8px 0">Every coin is scored against the coin it trades on.<br>The board fills when the first coins launch.</div></div></div>
+    <p class="rcap" style="margin-top:34px">Paired to another coin, a coin has something to beat. We keep score.</p>
   </section>
 
-  <section class="wrap" id="stocks">
+  <section class="wrap" id="pools">
     <div class="shead">
-      <div class="slabel">Assets</div>
-      <h2>Any asset. Not a fixed menu.</h2>
+      <div class="slabel">Pools</div>
+      <h2>No menu. You open it.</h2>
     </div>
-    <div class="grid" id="stockGridLanding"></div>
-    <p class="rcap" style="margin-top:34px">Every other launchpad hands you a list and keeps the fees. Here you open what isn't there, and the fees are yours.</p>
+    <div class="grid" id="poolGridLanding"></div>
+    <p class="rcap" style="margin-top:34px">Every other launchpad hands you a list of things to pair against and keeps the fees. Here there is no list &mdash; you open the pool, and the fees are yours.</p>
   </section>
 
   <footer>
@@ -450,13 +453,13 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
             <rect x="1.2" y="1.2" width="21.6" height="21.6" rx="6.5" stroke="currentColor" stroke-width="1.5"/>
             <path d="M3.4 13.2c1.6 0 1.6 1.9 3.2 1.9s1.6-1.9 3.2-1.9 1.6 1.9 3.2 1.9 1.6-1.9 3.2-1.9 1.6 1.9 3.2 1.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
-          The Pool
+          The Pools
         </a>
-        <p class="fnote">A stock-paired coin is not the share. No dividends, no voting, no claim on the company. Tokenized stocks are issued by third parties. Figures shown are example data for a product preview.</p>
+        <p class="fnote">Memecoins are speculative and can go to zero. Opening a pool means putting your own tokens and SOL at risk, and a pool can lose value against simply holding them. Nothing here is investment advice. Figures shown are example data for a product preview.</p>
       </div>
       <div class="flinks">
         <a href="#how">Docs</a>
-        <a href="#stocks">Stocks</a>
+        <a href="#pools">Pools</a>
         <a href="#">X</a>
       </div>
     </div>
@@ -471,21 +474,21 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <div class="tabs" role="tablist">
         <button class="tab" role="tab" aria-selected="true" data-view="home">Explore</button>
         <button class="tab" role="tab" aria-selected="false" data-view="launch">Launch</button>
-        <button class="tab" role="tab" aria-selected="false" data-view="fund">Fund a pool</button>
+        <button class="tab" role="tab" aria-selected="false" data-view="fund">Open a pool</button>
       </div>
     </div>
 
     <div id="viewHome">
-      <div class="grid" id="stockGridApp" style="margin-bottom:24px"></div>
+      <div class="grid" id="poolGridApp" style="margin-bottom:24px"></div>
       <div class="panel" style="margin-bottom:24px">
-        <div class="phead"><h3>Beating their stock</h3><span class="hint">24h spread</span></div>
+        <div class="phead"><h3>Beating their pool</h3><span class="hint">24h spread</span></div>
         <div id="lbApp"></div>
       </div>
       <div class="panel">
         <div class="phead"><h3>Live coins</h3><span class="hint">24h volume</span></div>
         <div class="tblw">
           <table>
-            <thead><tr><th>Coin</th><th>Paired to</th><th>Market cap</th><th>24h</th><th>vs stock</th><th>Curve</th><th>Age</th></tr></thead>
+            <thead><tr><th>Coin</th><th>Paired to</th><th>Market cap</th><th>24h</th><th>vs pool</th><th>Curve</th><th>Age</th></tr></thead>
             <tbody id="coinRows"></tbody>
           </table>
         </div>
@@ -504,7 +507,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
             <div><dt>Market cap</dt><dd id="cMcap"></dd></div>
             <div><dt>24h</dt><dd id="cChg"></dd></div>
             <div><dt>Paired to</dt><dd id="cPair"></dd></div>
-            <div><dt id="cVsLabel">vs stock</dt><dd id="cVs"></dd></div>
+            <div><dt id="cVsLabel">vs pool</dt><dd id="cVs"></dd></div>
             <div><dt>Pool depth</dt><dd id="cDepth"></dd></div>
           </dl>
           <div class="cbox"><canvas id="chart" height="170"></canvas></div>
@@ -532,7 +535,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           </div>
           <div class="rlines">
             <div class="rl"><span id="r1k">Route</span><span id="r1v"></span></div>
-            <div class="rl"><span>Stock leg</span><span id="r2v"></span></div>
+            <div class="rl"><span>Pool leg</span><span id="r2v"></span></div>
             <div class="rl"><span>Curve</span><span id="r3v"></span></div>
             <div class="rl total"><span>You receive</span><span id="r5v"></span></div>
           </div>
@@ -547,7 +550,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div class="panel">
           <div class="fs">
             <div class="fsn">01</div>
-            <h3>Pick a stock</h3>
+            <h3>Pick a pool</h3>
             <div class="picker" id="lPicker"></div>
           </div>
           <div class="fs">
@@ -582,7 +585,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           <div style="padding:18px 22px 22px">
             <div class="sl"><span>Coin</span><span id="sName">Floatie</span></div>
             <div class="sl"><span>Ticker</span><span id="sTicker">FLOATIE</span></div>
-            <div class="sl"><span>Paired to</span><span id="sPair">SPYx</span></div>
+            <div class="sl"><span>Paired to</span><span id="sPair">POOLS</span></div>
             <div class="sl"><span>Pool depth</span><span id="sDepth">412 SOL</span></div>
             <div class="sl"><span>Supply</span><span>1,000,000,000</span></div>
             <div class="sl"><span>Dev buy</span><span id="sDev">0.50 SOL</span></div>
@@ -598,10 +601,10 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div class="panel">
           <div class="fs">
             <div class="fsn">01</div>
-            <h3>Pick a stock</h3>
+            <h3>Open a pool</h3>
             <div class="picker" id="fPicker"></div>
             <div style="margin-top:16px">
-              <label class="fl" for="fMint">Or paste any tokenized stock mint</label>
+              <label class="fl" for="fMint">Or paste any token mint</label>
               <div class="field"><input id="fMint" type="text" placeholder="Mint address" autocomplete="off"></div>
             </div>
           </div>
@@ -614,8 +617,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
                 <div class="field"><input id="fSol" type="text" inputmode="decimal" value="25"><span class="unit">SOL</span></div>
               </div>
               <div>
-                <label class="fl" for="fStock">Stock side</label>
-                <div class="field"><input id="fStock" type="text" inputmode="decimal" value="25"><span class="unit">SOL eq.</span></div>
+                <label class="fl" for="fToken">Token side</label>
+                <div class="field"><input id="fToken" type="text" inputmode="decimal" value="25"><span class="unit">SOL eq.</span></div>
               </div>
             </div>
             <p class="disc" style="text-align:left;margin-top:14px">The pool opens for launches once depth clears 50 SOL. Below that it stays listed.</p>
@@ -629,8 +632,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <div class="panel summary">
           <div class="phead"><h3>Summary</h3></div>
           <div style="padding:18px 22px 22px">
-            <div class="sl"><span>Stock</span><span id="fsTicker">GOOGLx</span></div>
-            <div class="sl"><span>Pair</span><span id="fsPair">GOOGLx / SOL</span></div>
+            <div class="sl"><span>Token</span><span id="fsTicker">POOLS</span></div>
+            <div class="sl"><span>Pair</span><span id="fsPair">POOLS / SOL</span></div>
             <div class="sl"><span>Total depth</span><span id="fsDepth">50 SOL</span></div>
             <div class="sl"><span>Opens for launches</span><span id="fsOpen">Yes</span></div>
             <div class="sl"><span>Pool type</span><span>DAMM v2</span></div>
@@ -648,24 +651,20 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
 <script>
 (function(){
   "use strict";
-  var STOCKS = [
-    {t:"SPYx", co:"S&P 500 ETF", iss:"xStocks", depth:0, coins:0, live:false, ch:0.4},
-    {t:"NVDAx", co:"NVIDIA", iss:"xStocks", depth:0, coins:0, live:false, ch:3.1},
-    {t:"CRCLx", co:"Circle", iss:"xStocks", depth:0, coins:0, live:false, ch:-2.4},
-    {t:"QQQx", co:"Nasdaq 100", iss:"xStocks", depth:0, coins:0, live:false, ch:0.9},
-    {t:"TSLAx", co:"Tesla", iss:"xStocks", depth:0, coins:0, live:false, ch:-1.8},
-    {t:"COINx", co:"Coinbase", iss:"xStocks", depth:0, coins:0, live:false, ch:2.2},
-    {t:"GOOGLx", co:"Alphabet", iss:"xStocks", depth:0, coins:0, live:false, ch:1.2},
-    {t:"METAx", co:"Meta", iss:"xStocks", depth:0, coins:0, live:false, ch:0.8}
+  // No pool exists yet. $POOLS is the first one we open; everything else on this
+  // board will be opened by whoever gets there first. Do not add fake entries.
+  var POOLS = [
+    {t:"POOLS", co:"The Pools", iss:"opened by us", depth:0, coins:0, live:false, ch:0}
   ];
   var MAXD = 450;
+  // Example data for the preview only. Every one of these is made up.
   var COINS = [
-    {n:"HIGHDIVE", s:"NVDAx", mc:215000, ch:112.6, prog:78, age:"4h",  c:"#0E86AF", ca:"7dVq2mKpHXnRs4LbTgYcW9AeF3uJ1pQzN6xRdM8vB2Ct"},
-    {n:"FLOATIE",  s:"SPYx",   mc:118700, ch:64.2,  prog:52, age:"11h", c:"#10A08F", ca:"3JkP9wRtYuA2sD6fG1hLmN4bV7cX5zQeT8rU0iO3pKdS"},
-    {n:"PUDDLE",   s:"NVDAx", mc:42100,  ch:18.4,  prog:24, age:"2h",  c:"#0B5E7D", ca:"9mWq4EzTyU7iOpAsDfGhJkLxCvBnM2Q6rT1yU5iP8oLz"},
-    {n:"CHLORINE", s:"TSLAx", mc:27400,  ch:-6.1,  prog:16, age:"1d",  c:"#5C8497", ca:"2bNmQ8wErTyUiOpAsDfGhJkLzXcVbN4mQ7wE1rT9yU3i"},
-    {n:"SKIMMER",  s:"QQQx",  mc:9200,   ch:3.8,   prog:7,  age:"3h",  c:"#A98246", ca:"5xCvBnMqWeRtYuIoPaSdFgHjKlZxCvB8nM3qW6eR9tY1"},
-    {n:"NOODLE",   s:"COINx",  mc:6800,   ch:-12.0, prog:5,  age:"6h",  c:"#8A6E96", ca:"8pLkJhGfDsAqWeRtYuIoP2xCvBnM5qW9eR4tY7uI1oPa"}
+    {n:"HIGHDIVE", s:"POOLS", mc:215000, ch:112.6, prog:78, age:"4h",  c:"#0E86AF", ca:"Example — not a real address"},
+    {n:"FLOATIE",  s:"POOLS", mc:118700, ch:64.2,  prog:52, age:"11h", c:"#10A08F", ca:"Example — not a real address"},
+    {n:"PUDDLE",   s:"POOLS", mc:42100,  ch:18.4,  prog:24, age:"2h",  c:"#0B5E7D", ca:"Example — not a real address"},
+    {n:"CHLORINE", s:"POOLS", mc:27400,  ch:-6.1,  prog:16, age:"1d",  c:"#5C8497", ca:"Example — not a real address"},
+    {n:"SKIMMER",  s:"POOLS", mc:9200,   ch:3.8,   prog:7,  age:"3h",  c:"#A98246", ca:"Example — not a real address"},
+    {n:"NOODLE",   s:"POOLS", mc:6800,   ch:-12.0, prog:5,  age:"6h",  c:"#8A6E96", ca:"Example — not a real address"}
   ];
   var $ = function(id){ return document.getElementById(id); };
   function fmtUSD(n){
@@ -673,26 +672,26 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     if(n>=1000) return "$"+(n/1000).toFixed(1)+"K";
     return "$"+n.toFixed(0);
   }
-  function stockBy(t){ for(var i=0;i<STOCKS.length;i++){ if(STOCKS[i].t===t) return STOCKS[i]; } return STOCKS[0]; }
+  function poolBy(t){ for(var i=0;i<POOLS.length;i++){ if(POOLS[i].t===t) return POOLS[i]; } return POOLS[0]; }
 
   // hero tiles
   (function(){
     var h = $("tiles");
-    for(var i=0;i<4;i++){
-      var s = STOCKS[i];
+    for(var i=0;i<POOLS.length;i++){
+      var s = POOLS[i];
       var d = document.createElement("div");
       d.className = "tile";
-      d.innerHTML = '<div class="tk">'+s.t+'</div><div class="dp">opening soon</div>'+
+      d.innerHTML = '<div class="tk">$'+s.t+'</div><div class="dp">first pool \u00b7 opening soon</div>'+
                     '<div class="wave"><i style="width:0%"></i></div>';
       h.appendChild(d);
     }
   })();
 
-  function stockCard(s, clickable){
+  function poolCard(s, clickable){
     var pct = s.live ? Math.max(5, Math.round(s.depth/MAXD*100)) : 0;
     var tag = s.live ? '<span class="pill live">Live</span>' : '<span class="pill wait">Soon</span>';
     var el = document.createElement(clickable ? "button" : "div");
-    el.className = "stock" + (s.live ? "" : " listed");
+    el.className = "pool" + (s.live ? "" : " listed");
     el.innerHTML =
       '<div class="stop"><div><div class="tk">'+s.t+'</div><div class="co">'+s.co+'</div></div>'+tag+'</div>'+
       '<div class="dwrap"><div class="dlab"><span>Pool</span><span>'+s.iss+'</span></div>'+
@@ -703,13 +702,19 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     }
     return el;
   }
-  function renderStocks(host, clickable){
+  function renderPools(host, clickable){
     var h = $(host); if(!h) return;
     h.innerHTML = "";
-    for(var i=0;i<STOCKS.length;i++) h.appendChild(stockCard(STOCKS[i], clickable));
+    for(var i=0;i<POOLS.length;i++) h.appendChild(poolCard(POOLS[i], clickable));
+    var note = document.createElement("div");
+    note.className = "poolnote";
+    note.innerHTML = clickable
+      ? "No other pools are open yet. Open one and it is yours."
+      : "No pools are open yet. $POOLS will be the first; the rest are opened by whoever gets there first.";
+    h.appendChild(note);
   }
 
-  function spread(c){ return c.ch - stockBy(c.s).ch; }
+  function spread(c){ return c.ch - poolBy(c.s).ch; }
   function fmtSpread(v){ return (v>=0?"+":"−") + Math.abs(v).toFixed(1) + " pts"; }
 
   function renderLeaderboard(host, limit){
@@ -719,7 +724,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     var n = limit ? Math.min(limit, ranked.length) : ranked.length;
     for(var i=0;i<n;i++){
       (function(c, idx){
-        var sp = spread(c), st = stockBy(c.s);
+        var sp = spread(c), st = poolBy(c.s);
         var row = document.createElement("div");
         row.className = "lbr";
         row.innerHTML =
@@ -803,7 +808,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   function recalc(){
     var raw = parseFloat($("amt").value);
     if(isNaN(raw) || raw <= 0) raw = 0;
-    var st = stockBy(current.s);
+    var st = poolBy(current.s);
     var depth = st.depth || 1;
     var si = raw>0 ? (raw/(depth+raw))*100 : 0;
     var ci = raw>0 ? Math.min(28, (raw/(6 + current.mc/9000))*1.4) : 0;
@@ -835,7 +840,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   }
   function openCoin(c){
     current = c;
-    var st = stockBy(c.s);
+    var st = poolBy(c.s);
     $("cAv").textContent = c.n.charAt(0);
     $("cAv").style.background = c.c;
     $("cName").textContent = c.n;
@@ -857,10 +862,10 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     drawChart(c);
   }
 
-  var picked = "SPYx";
+  var picked = "POOLS";
   function renderPicker(){
     var h = $("lPicker"); h.innerHTML = "";
-    for(var i=0;i<STOCKS.length;i++){
+    for(var i=0;i<POOLS.length;i++){
       (function(s){
         var b = document.createElement("button");
         b.className = "pick"; b.type = "button"; b.disabled = !s.live;
@@ -868,11 +873,11 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         b.innerHTML = '<div class="pk">'+s.t+'</div><div class="pd">'+(s.live ? s.depth+" SOL" : "soon")+'</div>';
         b.addEventListener("click", function(){ picked = s.t; renderPicker(); sync(); });
         h.appendChild(b);
-      })(STOCKS[i]);
+      })(POOLS[i]);
     }
   }
   function sync(){
-    var st = stockBy(picked);
+    var st = poolBy(picked);
     $("sName").textContent = $("lName").value || "—";
     $("sTicker").textContent = ($("lTicker").value || "—").toUpperCase();
     $("sPair").textContent = picked;
@@ -886,7 +891,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   var fPicked = "GOOGLx";
   function renderFPicker(){
     var h = $("fPicker"); h.innerHTML = "";
-    for(var i=0;i<STOCKS.length;i++){
+    for(var i=0;i<POOLS.length;i++){
       (function(s){
         if(s.live) return;
         var b = document.createElement("button");
@@ -895,14 +900,14 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         b.innerHTML = '<div class="pk">'+s.t+'</div><div class="pd">no pool</div>';
         b.addEventListener("click", function(){ fPicked = s.t; $("fMint").value = ""; renderFPicker(); fSync(); });
         h.appendChild(b);
-      })(STOCKS[i]);
+      })(POOLS[i]);
     }
   }
   function fSync(){
     var custom = $("fMint").value.trim();
     var label = custom ? (custom.length > 12 ? custom.slice(0,4)+"…"+custom.slice(-4) : custom) : fPicked;
     var a = parseFloat($("fSol").value); if(isNaN(a) || a < 0) a = 0;
-    var b = parseFloat($("fStock").value); if(isNaN(b) || b < 0) b = 0;
+    var b = parseFloat($("fToken").value); if(isNaN(b) || b < 0) b = 0;
     var total = a + b;
     $("fsTicker").textContent = label;
     $("fsPair").textContent = label + " / SOL";
@@ -921,7 +926,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     var tabs = document.querySelectorAll(".tab");
     for(var i=0;i<tabs.length;i++) tabs[i].setAttribute("aria-selected", tabs[i].getAttribute("data-view")===v);
     if(v==="home"){ show("viewHome"); $("appTitle").textContent = "Pools"; }
-    else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Fund a pool"; }
+    else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Open a pool"; }
     else { show("viewLaunch"); $("appTitle").textContent = "Launch"; }
   }
   function openApp(){
@@ -937,8 +942,8 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     window.scrollTo(0,0);
   }
 
-  renderStocks("stockGridLanding", false);
-  renderStocks("stockGridApp", true);
+  renderPools("poolGridLanding", false);
+  renderPools("poolGridApp", true);
   renderCoins(); renderPicker(); sync(); renderFPicker(); fSync();
   renderLeaderboard("lbApp", 4);
 
@@ -964,7 +969,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   $("launchBtn").addEventListener("click", function(){ this.textContent = "Preview only"; });
   $("fundBtn").addEventListener("click", function(){ this.textContent = "Preview only"; });
   $("fSol").addEventListener("input", fSync);
-  $("fStock").addEventListener("input", fSync);
+  $("fToken").addEventListener("input", fSync);
   $("fMint").addEventListener("input", function(){
     if(this.value.trim()){
       var picks = document.querySelectorAll("#fPicker .pick");
