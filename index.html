@@ -189,6 +189,10 @@ section{padding-block:104px}
 }
 button.pool:hover{border-color:var(--accent);transform:translateY(-2px)}
 .pool.listed{background:transparent;border-style:dashed}
+.notice{margin-top:30px;border:1px solid var(--line);border-left:3px solid var(--pending);
+  border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.6;color:var(--muted);
+  max-width:760px;margin-inline:auto;background:var(--surface)}
+.notice strong{color:var(--ink);font-weight:650}
 .poolnote{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:22px 20px;
   color:var(--muted);font-size:13.5px;line-height:1.55;text-align:center;align-self:stretch;
   display:flex;align-items:center;justify-content:center}
@@ -407,6 +411,11 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <p>We build the transaction and you sign it. No deposit, no vault, no key of ours anywhere near your funds.</p>
       </div>
     </div>
+    <div class="notice">
+      <strong>Pool liquidity is not locked.</strong> Whoever mints a pool can withdraw their side of it at any time,
+      including us on $POOLS. That is what makes the position theirs, and it is the risk you take when you buy a coin
+      paired to a pool someone else owns. Lock status is public on chain &mdash; check it before you buy, on any pool here or anywhere else.
+    </div>
     <p class="rcap" style="margin-top:34px">Keep the pool deep and the lane is yours. Let it dry up and it opens back up for someone else &mdash; coins already trading keep paying you either way.</p>
   </section>
 
@@ -475,6 +484,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
         <button class="tab" role="tab" aria-selected="true" data-view="home">Explore</button>
         <button class="tab" role="tab" aria-selected="false" data-view="launch">Launch</button>
         <button class="tab" role="tab" aria-selected="false" data-view="fund">Mint a pool</button>
+        <button class="tab" role="tab" aria-selected="false" data-view="mine">Your pools</button>
       </div>
     </div>
 
@@ -493,6 +503,20 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           </table>
         </div>
       </div>
+    </div>
+
+    <div id="viewMine" class="hidden">
+      <div class="panel">
+        <div class="phead"><h3>Your positions</h3><span class="hint">withdraw any time</span></div>
+        <div class="tblw">
+          <table>
+            <thead><tr><th>Pool</th><th>Your side</th><th>Fees earned</th><th>Locked</th><th></th></tr></thead>
+            <tbody id="mineRows"></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="disc" style="margin-top:18px">A position is an NFT in your wallet. Only the wallet holding it can withdraw, and
+        The Pools has no override &mdash; we cannot touch your liquidity and neither can anyone else.</p>
     </div>
 
     <div id="viewCoin" class="hidden">
@@ -748,6 +772,25 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     return out.concat(COINS);
   }
 
+  function renderMine(){
+    var tb = $("mineRows"); if(!tb) return;
+    tb.innerHTML = "";
+    // Preview only. With a wallet connected this lists real positions read from
+    // chain — see src/pool/withdraw.ts listPositions().
+    var rows = [{pool:"POOLS", side:"50.0 SOL", fees:"0.00 SOL", locked:"No"}];
+    for(var i=0;i<rows.length;i++){
+      var r = rows[i];
+      var tr = document.createElement("tr");
+      tr.innerHTML =
+        '<td class="mono">'+r.pool+'</td>'+
+        '<td class="mono">'+r.side+'</td>'+
+        '<td class="mono">'+r.fees+'</td>'+
+        '<td class="mono">'+r.locked+'</td>'+
+        '<td style="text-align:right"><button class="btn btn-ghost" style="padding:7px 14px;font-size:13px">Withdraw</button></td>';
+      tb.appendChild(tr);
+    }
+  }
+
   function renderCoins(){
     var tb = $("coinRows"); tb.innerHTML = "";
     var rows = allRows();
@@ -932,7 +975,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   function goFund(t){ if(t) fPicked = t; renderFPicker(); fSync(); setTab("fund"); }
 
   function show(id){
-    var ids = ["viewHome","viewCoin","viewLaunch","viewFund"];
+    var ids = ["viewHome","viewCoin","viewLaunch","viewFund","viewMine"];
     for(var i=0;i<ids.length;i++) $(ids[i]).classList.toggle("hidden", ids[i]!==id);
     window.scrollTo(0,0);
   }
@@ -941,6 +984,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     for(var i=0;i<tabs.length;i++) tabs[i].setAttribute("aria-selected", tabs[i].getAttribute("data-view")===v);
     if(v==="home"){ show("viewHome"); $("appTitle").textContent = "Pools"; }
     else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Mint a pool"; }
+    else if(v==="mine"){ show("viewMine"); $("appTitle").textContent = "Your pools"; renderMine(); }
     else { show("viewLaunch"); $("appTitle").textContent = "Launch"; }
   }
   function openApp(){
