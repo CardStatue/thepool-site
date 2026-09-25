@@ -1,5 +1,5 @@
 <title>The Pools — open the pool, keep the fees</title>
-<meta name="description" content="A Solana launchpad where you open a pool for your coin — and keep the fees on every coin launched against it. Launching soon.">
+<meta name="description" content="A Solana launchpad where you open a pool for your coin — and keep the fees on every coin launched against it.">
 <meta name="theme-color" content="#0E86AF">
 <link rel="icon" href="/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/favicon.png">
@@ -195,6 +195,11 @@ button.pool:hover{border-color:var(--accent);transform:translateY(-2px)}
 .notice strong{color:var(--ink);font-weight:650}
 .ghost td{opacity:.45}
 .ghostav{background:var(--surface-2)}
+.plinks{display:flex;gap:14px;margin-top:14px;font-family:var(--font-mono);font-size:12px}
+.plinks a{color:var(--accent);text-decoration:none}
+.plinks a:hover{text-decoration:underline}
+a.tile{color:inherit;text-decoration:none;display:block}
+a.tile:hover{border-color:var(--accent)}
 .poolnote{grid-column:1/-1;border:1px dashed var(--line);border-radius:14px;padding:22px 20px;
   color:var(--muted);font-size:13.5px;line-height:1.55;text-align:center;align-self:stretch;
   display:flex;align-items:center;justify-content:center}
@@ -331,16 +336,16 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <a href="#own">Ownership</a>
       <a href="#pools">Pools</a>
     </div>
-    <button class="btn" id="toggleApp">Open app</button>
+    <a class="btn" id="tradeNav" href="#pools">Trade $POOLS</a>
   </div>
 </nav>
 
 <main id="landing">
   <div class="wrap hero">
     <h1 class="hh">Open the pool.<br>Keep the <em>fees</em>.</h1>
-    <p class="hsub">Mint a pool, and every coin launched into it pays you — for as long as it trades.<br><span style="font-size:15px;opacity:.75">Launching soon on Solana.</span></p>
+    <p class="hsub">Mint a pool, and every coin launched into it pays you — for as long as it trades.</p>
     <div class="hcta">
-      <button class="btn" id="heroOpen">Open app</button>
+      <a class="btn" id="tradeHero" href="#pools">Trade $POOLS</a>
       <a class="btn btn-ghost" href="#how">How it works</a>
     </div>
     <div class="tiles" id="tiles"></div>
@@ -433,15 +438,6 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     <p class="rcap">One signature. You never hold the pool token, and you never see the leg in between.</p>
   </section>
 
-  <section class="wrap" id="beating">
-    <div class="shead">
-      <div class="slabel">Scoreboard</div>
-      <h2>Every coin has a benchmark.</h2>
-    </div>
-    <div class="lbwrap" id="lbLanding"><div class="lbr" style="grid-template-columns:1fr"><div style="text-align:center;color:var(--muted);font-size:14.5px;padding:8px 0">Every coin is scored against the coin it trades on.<br>The board fills when the first coins launch.</div></div></div>
-    <p class="rcap" style="margin-top:34px">Paired to another coin, a coin has something to beat. We keep score.</p>
-  </section>
-
   <section class="wrap" id="pools">
     <div class="shead">
       <div class="slabel">Pools</div>
@@ -461,7 +457,7 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
           </svg>
           The Pools
         </a>
-        <p class="fnote">Memecoins are speculative and can go to zero. Opening a pool means putting your own tokens and SOL at risk, and a pool can lose value against simply holding them. Nothing here is investment advice. Figures shown are example data for a product preview.</p>
+        <p class="fnote">Memecoins are speculative and can go to zero. Opening a pool means putting your own tokens and SOL at risk, and a pool can lose value against simply holding them. Nothing here is investment advice.</p>
       </div>
       <div class="flinks">
         <a href="#how">Docs</a>
@@ -472,582 +468,103 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
   </footer>
 </main>
 
-<div id="app" class="hidden">
-  <div class="pbar"><div class="wrap">PREVIEW — example data. Nothing on-chain yet.</div></div>
-  <div class="wrap app">
-    <div class="ahead">
-      <h2 id="appTitle">Pools</h2>
-      <div class="tabs" role="tablist">
-        <button class="tab" role="tab" aria-selected="true" data-view="home">Explore</button>
-        <button class="tab" role="tab" aria-selected="false" data-view="launch">Launch</button>
-        <button class="tab" role="tab" aria-selected="false" data-view="fund">Mint a pool</button>
-        <button class="tab" role="tab" aria-selected="false" data-view="mine">Your pools</button>
-      </div>
-    </div>
-
-    <div id="viewHome">
-      <div class="grid" id="poolGridApp" style="margin-bottom:24px"></div>
-      <div class="panel" style="margin-bottom:24px">
-        <div class="phead"><h3>Beating their pool</h3><span class="hint">24h spread</span></div>
-        <div id="lbApp"></div>
-      </div>
-      <div class="panel">
-        <div class="phead"><h3>Pools &amp; coins</h3><span class="hint">every pool is also a coin</span></div>
-        <div class="tblw">
-          <table>
-            <thead><tr><th>Name</th><th>Kind</th><th>Paired to</th><th>Market cap</th><th>24h</th><th>vs pool</th><th>Curve</th><th>Age</th></tr></thead>
-            <tbody id="coinRows"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div id="viewMine" class="hidden">
-      <div class="panel">
-        <div class="phead"><h3>Your positions</h3></div>
-        <div class="tblw">
-          <table>
-            <thead><tr><th>Pool</th><th>Liquidity</th><th>Market cap</th><th>Fees earned</th><th></th></tr></thead>
-            <tbody id="mineRows"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <div id="viewCoin" class="hidden">
-      <button class="back" id="backBtn">← Back</button>
-      <div class="clay">
-        <div class="panel">
-          <div class="chero">
-            <div class="av" id="cAv"></div>
-            <div><h2 id="cName"></h2><div class="ca" id="cCa"></div></div>
-          </div>
-          <dl class="cstats">
-            <div><dt>Market cap</dt><dd id="cMcap"></dd></div>
-            <div><dt>24h</dt><dd id="cChg"></dd></div>
-            <div><dt>Paired to</dt><dd id="cPair"></dd></div>
-            <div><dt id="cVsLabel">vs pool</dt><dd id="cVs"></dd></div>
-            <div><dt>Pool depth</dt><dd id="cDepth"></dd></div>
-          </dl>
-          <div class="cbox"><canvas id="chart" height="170"></canvas></div>
-          <div class="prog">
-            <div class="plab"><span>Curve progress</span><span class="mono" id="cProgTxt"></span></div>
-            <div class="ptrack"><i id="cProgBar"></i></div>
-          </div>
-        </div>
-
-        <div class="panel trade">
-          <div class="seg">
-            <button id="buyBtn" aria-pressed="true">Buy</button>
-            <button id="sellBtn" aria-pressed="false">Sell</button>
-          </div>
-          <label class="fl" for="amt" id="amtLabel">Amount in SOL</label>
-          <div class="field">
-            <input id="amt" type="text" inputmode="decimal" value="1.0" autocomplete="off">
-            <span class="unit" id="amtUnit">SOL</span>
-          </div>
-          <div class="chips">
-            <button class="chip" data-amt="0.5">0.5</button>
-            <button class="chip" data-amt="1">1</button>
-            <button class="chip" data-amt="5">5</button>
-            <button class="chip" data-amt="10">10</button>
-          </div>
-          <div class="rlines">
-            <div class="rl"><span id="r1k">Route</span><span id="r1v"></span></div>
-            <div class="rl"><span>Pool leg</span><span id="r2v"></span></div>
-            <div class="rl"><span>Curve</span><span id="r3v"></span></div>
-            <div class="rl total"><span>You receive</span><span id="r5v"></span></div>
-          </div>
-          <button class="btn" id="tradeBtn">Connect wallet</button>
-          <p class="disc">Preview only — no transaction is sent.</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="viewLaunch" class="hidden">
-      <div class="lgrid">
-        <div class="panel">
-          <div class="fs">
-            <div class="fsn">01</div>
-            <h3>Pick a pool</h3>
-            <div class="picker" id="lPicker"></div>
-          </div>
-          <div class="fs">
-            <div class="fsn">02</div>
-            <h3>Name your coin</h3>
-            <div class="row2">
-              <div>
-                <label class="fl" for="lName">Name</label>
-                <div class="field"><input id="lName" type="text" value="" placeholder="Your coin" autocomplete="off"></div>
-              </div>
-              <div>
-                <label class="fl" for="lTicker">Ticker</label>
-                <div class="field"><input id="lTicker" type="text" value="" placeholder="TICKER" autocomplete="off"></div>
-              </div>
-            </div>
-            <div style="margin-top:14px">
-              <label class="fl" for="lImg">Image URL</label>
-              <div class="field"><input id="lImg" type="text" placeholder="https://" autocomplete="off"></div>
-            </div>
-          </div>
-          <div class="fs">
-            <div class="fsn">03</div>
-            <h3>Dev buy</h3>
-            <div style="max-width:220px">
-              <label class="fl" for="lDev">Optional</label>
-              <div class="field"><input id="lDev" type="text" inputmode="decimal" value="0.5"><span class="unit">SOL</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="panel summary">
-          <div class="phead"><h3>Summary</h3></div>
-          <div style="padding:18px 22px 22px">
-            <div class="sl"><span>Coin</span><span id="sName">—</span></div>
-            <div class="sl"><span>Ticker</span><span id="sTicker">—</span></div>
-            <div class="sl"><span>Paired to</span><span id="sPair">POOLS</span></div>
-            <div class="sl"><span>Pool depth</span><span id="sDepth">412 SOL</span></div>
-            <div class="sl"><span>Supply</span><span>1,000,000,000</span></div>
-            <div class="sl"><span>Dev buy</span><span id="sDev">0.50 SOL</span></div>
-            <button class="btn" id="launchBtn" style="width:100%;justify-content:center;margin-top:20px;padding:13px">Connect wallet</button>
-            <p class="disc">Preview only — no transaction is sent.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="viewFund" class="hidden">
-      <div class="lgrid">
-        <div class="panel">
-          <div class="fs">
-            <div class="fsn">01</div>
-            <h3>Name the pool</h3>
-            <div class="field"><input id="fMint" type="text" placeholder="CHLORINE" autocomplete="off"></div>
-            <p class="disc" style="text-align:left;margin-top:12px">The pool is minted as its own coin and paired to SOL. Pick a name people will want to launch into.</p>
-            <div class="picker hidden" id="fPicker"></div>
-          </div>
-          <div class="fs">
-            <div class="fsn">02</div>
-            <h3>Seed the pool</h3>
-            <div class="row2">
-              <div>
-                <label class="fl" for="fSol">SOL side</label>
-                <div class="field"><input id="fSol" type="text" inputmode="decimal" value="25"><span class="unit">SOL</span></div>
-              </div>
-              <div>
-                <label class="fl" for="fToken">Pool side</label>
-                <div class="field"><input id="fToken" type="text" inputmode="decimal" value="25"><span class="unit">SOL eq.</span></div>
-              </div>
-            </div>
-            <p class="disc" style="text-align:left;margin-top:14px">The pool opens for launches once depth clears 50 SOL. Below that it stays listed.</p>
-          </div>
-          <div class="fs">
-            <div class="fsn">03</div>
-            <h3>Link a coin — optional</h3>
-            <p class="disc" style="text-align:left;margin-top:0">Launch your first coin into the pool now, or skip it and leave the pool open for other people. Either way you earn on every coin that ever launches into it, and your side stays withdrawable.</p>
-          </div>
-        </div>
-        <div class="panel summary">
-          <div class="phead"><h3>Summary</h3></div>
-          <div style="padding:18px 22px 22px">
-            <div class="sl"><span>Token</span><span id="fsTicker">POOLS</span></div>
-            <div class="sl"><span>Pair</span><span id="fsPair">POOLS / SOL</span></div>
-            <div class="sl"><span>Total depth</span><span id="fsDepth">50 SOL</span></div>
-            <div class="sl"><span>Opens for launches</span><span id="fsOpen">Yes</span></div>
-            <div class="sl"><span>Pool type</span><span>DAMM v2</span></div>
-            <div class="sl"><span>Creation cost</span><span>0.022 SOL</span></div>
-            <div class="sl"><span>Earns</span><span id="fsEarn">Trading fees</span></div>
-            <button class="btn" id="fundBtn" style="width:100%;justify-content:center;margin-top:20px;padding:13px">Connect wallet</button>
-            <p class="disc">Preview only — no transaction is sent.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script>
 (function(){
   "use strict";
-  // No pool exists yet. $POOLS is the first one we open; everything else on this
-  // board will be opened by whoever gets there first. Do not add fake entries.
-  var POOLS = [
-    {t:"POOLS", co:"The Pools", iss:"opened by us", depth:0, coins:0, live:false, ch:0}
+
+  // ── LAUNCH CONFIG ─────────────────────────────────────────────────────────
+  // Only these need filling in. Every number on the page is read live from
+  // DexScreener — nothing is typed in by hand.
+  var POOLS_MINT = "73Xj2kJckvPbXfMcexKFLkB1LNfiNaheKZwtKoxj19k7"; // $POOLS token mint
+  var LANE_COINS = [                   // coins launched into the POOLS lane
+    // { name: "The Pool", mint: "" }
   ];
-  var MAXD = 450;
-  // No coins exist yet. Nothing invented goes in this array — when coins are
-  // real they come from the DB. Until then the table shows TESTING placeholders.
-  var COINS = [];
-  var PLACEHOLDERS = 4;
+  // ──────────────────────────────────────────────────────────────────────────
+
   var $ = function(id){ return document.getElementById(id); };
-  function fmtUSD(n){
-    if(n>=1000000) return "$"+(n/1000000).toFixed(2)+"M";
-    if(n>=1000) return "$"+(n/1000).toFixed(1)+"K";
-    return "$"+n.toFixed(0);
+  function jup(m){ return "https://jup.ag/swap/SOL-" + m; }
+  function dex(m){ return "https://dexscreener.com/solana/" + m; }
+  function usd(n){
+    if(n == null || isNaN(n)) return "—";
+    n = Number(n);
+    if(n >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
+    if(n >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
+    if(n >= 1e3) return "$" + (n/1e3).toFixed(1) + "K";
+    return "$" + n.toFixed(0);
   }
-  function poolBy(t){ for(var i=0;i<POOLS.length;i++){ if(POOLS[i].t===t) return POOLS[i]; } return POOLS[0]; }
+  function pct(n){
+    if(n == null || isNaN(n)) return "—";
+    n = Number(n);
+    return (n >= 0 ? "+" : "−") + Math.abs(n).toFixed(1) + "%";
+  }
+  function esc(t){ var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 
-  // hero tiles
-  (function(){
-    var h = $("tiles");
-    for(var i=0;i<POOLS.length;i++){
-      var s = POOLS[i];
-      var d = document.createElement("div");
-      d.className = "tile";
-      d.innerHTML = '<div class="tk">$'+s.t+'</div><div class="dp">first pool \u00b7 opening soon</div>'+
-                    '<div class="wave"><i style="width:0%"></i></div>';
-      h.appendChild(d);
-    }
-  })();
+  // Best (deepest) Solana pair for a mint.
+  function stats(mint){
+    return fetch("https://api.dexscreener.com/latest/dex/tokens/" + mint)
+      .then(function(r){ return r.json(); })
+      .then(function(j){
+        var ps = (j.pairs || []).filter(function(p){ return p.chainId === "solana"; });
+        if(!ps.length) return null;
+        ps.sort(function(a,b){ return ((b.liquidity||{}).usd||0) - ((a.liquidity||{}).usd||0); });
+        var p = ps[0];
+        return {
+          name: p.baseToken && p.baseToken.address === mint ? p.baseToken.name : null,
+          symbol: p.baseToken && p.baseToken.address === mint ? p.baseToken.symbol : null,
+          price: p.priceUsd,
+          liq: (p.liquidity||{}).usd,
+          mcap: p.marketCap || p.fdv,
+          ch: (p.priceChange||{}).h24
+        };
+      })
+      .catch(function(){ return null; });
+  }
 
-  function poolCard(s, clickable){
-    var pct = s.live ? Math.max(5, Math.round(s.depth/MAXD*100)) : 0;
-    var tag = s.live ? '<span class="pill live">Live</span>' : '<span class="pill wait">Soon</span>';
-    var el = document.createElement(clickable ? "button" : "div");
-    el.className = "pool" + (s.live ? "" : " listed");
+  function card(label, sub, st, mint, isPool){
+    var el = document.createElement("div");
+    el.className = "pool";
     el.innerHTML =
-      '<div class="stop"><div><div class="tk">'+s.t+'</div><div class="co">'+s.co+'</div></div>'+tag+'</div>'+
-      '<div class="dwrap"><div class="dlab"><span>Pool</span><span>'+s.iss+'</span></div>'+
-      '<div class="dtrack"><i class="dfill" style="width:'+pct+'%"></i></div>'+
-      '<div class="dval">'+(s.live ? s.depth.toLocaleString()+" SOL" : "not open yet")+'</div></div>';
-    if(clickable){
-      el.addEventListener("click", function(){ s.live ? goLaunch(s.t) : goFund(s.t); });
-    }
+      '<div class="stop"><div><div class="tk">' + esc(label) + '</div>' +
+      '<div class="co">' + esc(sub) + '</div></div>' +
+      '<span class="pill ' + (isPool ? 'live' : 'wait') + '">' + (isPool ? 'Pool' : 'Coin') + '</span></div>' +
+      '<div class="dwrap">' +
+        '<div class="dlab"><span>Liquidity</span><span>' + usd(st && st.liq) + '</span></div>' +
+        '<div class="dlab"><span>Market cap</span><span>' + usd(st && st.mcap) + '</span></div>' +
+        '<div class="dlab"><span>24h</span><span>' + pct(st && st.ch) + '</span></div>' +
+        '<div class="plinks"><a href="' + jup(mint) + '" target="_blank" rel="noopener">Trade</a>' +
+        '<a href="' + dex(mint) + '" target="_blank" rel="noopener">Chart</a></div>' +
+      '</div>';
     return el;
   }
-  function renderPools(host, clickable){
-    var h = $(host); if(!h) return;
-    h.innerHTML = "";
-    for(var i=0;i<POOLS.length;i++) h.appendChild(poolCard(POOLS[i], clickable));
-    var note = document.createElement("div");
-    note.className = "poolnote";
-    note.innerHTML = clickable
-      ? "No other pools yet. Mint one and it is yours."
-      : "No pools yet. $POOLS will be the first; the rest get minted by whoever gets there first.";
-    h.appendChild(note);
+
+  function render(){
+    var grid = $("poolGridLanding"), tiles = $("tiles");
+    if(!POOLS_MINT){ grid.innerHTML = ""; tiles.innerHTML = ""; return; }
+
+    ["tradeNav","tradeHero"].forEach(function(id){
+      var a = $(id); a.href = jup(POOLS_MINT); a.target = "_blank"; a.rel = "noopener";
+    });
+
+    var jobs = [stats(POOLS_MINT)].concat(LANE_COINS.map(function(c){ return stats(c.mint); }));
+    Promise.all(jobs).then(function(res){
+      var pools = res[0];
+      grid.innerHTML = "";
+      grid.appendChild(card("$POOLS", "The Pools", pools, POOLS_MINT, true));
+      LANE_COINS.forEach(function(c, i){
+        var st = res[i+1];
+        var tick = (st && st.symbol) ? "$" + st.symbol : c.name;
+        grid.appendChild(card(tick, c.name + " · in the POOLS lane", st, c.mint, false));
+      });
+
+      tiles.innerHTML =
+        '<a class="tile" href="' + dex(POOLS_MINT) + '" target="_blank" rel="noopener">' +
+        '<div class="tk">$POOLS</div>' +
+        '<div class="dp">' + usd(pools && pools.liq) + ' liquidity · ' + usd(pools && pools.mcap) + ' mcap</div>' +
+        '</a>';
+    });
   }
 
-  function spread(c){ return c.ch - poolBy(c.s).ch; }
-  function fmtSpread(v){ return (v>=0?"+":"−") + Math.abs(v).toFixed(1) + " pts"; }
-
-  function renderLeaderboard(host, limit){
-    var h = $(host); if(!h) return;
-    h.innerHTML = "";
-    if(!COINS.length){
-      var e = document.createElement("div");
-      e.className = "lbr";
-      e.style.gridTemplateColumns = "1fr";
-      e.innerHTML = '<div style="text-align:center;color:var(--muted);font-size:14px;padding:10px 0">'+
-        'Testing. The board fills when the first coins launch.</div>';
-      h.appendChild(e);
-      return;
-    }
-    var ranked = COINS.slice().sort(function(a,b){ return spread(b) - spread(a); });
-    var n = limit ? Math.min(limit, ranked.length) : ranked.length;
-    for(var i=0;i<n;i++){
-      (function(c, idx){
-        var sp = spread(c), st = poolBy(c.s);
-        var row = document.createElement("div");
-        row.className = "lbr";
-        row.innerHTML =
-          '<div class="lbn">'+(idx+1)+'</div>'+
-          '<div class="lbc"><div class="av" style="background:'+c.c+'">'+c.n.charAt(0)+'</div>'+
-          '<div style="min-width:0"><div class="lbname">'+c.n+'</div>'+
-          '<div class="lbsub">'+c.n+' '+(c.ch>=0?"+":"")+c.ch.toFixed(1)+'% · '+st.t+' '+(st.ch>=0?"+":"")+st.ch.toFixed(1)+'%</div></div></div>'+
-          '<div class="lbv '+(sp>=0?"win":"lose")+'">'+fmtSpread(sp)+'</div>';
-        h.appendChild(row);
-      })(ranked[i], i);
-    }
-  }
-
-  // A pool token is a coin too, so it belongs in this table beside the coins
-  // launched into it. Its own pair is SOL and it has no pool to be scored against.
-  function allRows(){
-    var out = [];
-    for(var i=0;i<POOLS.length;i++){
-      var p = POOLS[i];
-      out.push({n:p.t, s:"SOL", mc:0, ch:p.ch, prog:null, age:"—", c:"#0E86AF", isPool:true, live:p.live});
-    }
-    out = out.concat(COINS);
-    for(var j=0;j<PLACEHOLDERS;j++) out.push({isPlaceholder:true});
-    return out;
-  }
-
-  function renderMine(){
-    var tb = $("mineRows"); if(!tb) return;
-    tb.innerHTML = "";
-    // Preview only. With a wallet connected this lists real positions read from
-    // chain — see src/pool/withdraw.ts listPositions().
-    var rows = [{pool:"POOLS", liq:"—", mc:"—", fees:"—"}];
-    for(var i=0;i<rows.length;i++){
-      var r = rows[i];
-      var tr = document.createElement("tr");
-      tr.innerHTML =
-        '<td class="mono">'+r.pool+'</td>'+
-        '<td class="mono">'+r.liq+'</td>'+
-        '<td class="mono">'+r.mc+'</td>'+
-        '<td class="mono">'+r.fees+'</td>'+
-        '<td style="text-align:right"><button class="btn btn-ghost" style="padding:7px 14px;font-size:13px">Withdraw</button></td>';
-      tb.appendChild(tr);
-    }
-  }
-
-  function renderCoins(){
-    var tb = $("coinRows"); tb.innerHTML = "";
-    var rows = allRows();
-    for(var i=0;i<rows.length;i++){
-      (function(c){
-        var tr = document.createElement("tr");
-        if(c.isPlaceholder){
-          tr.className = "ghost";
-          tr.innerHTML =
-            '<td><div class="cid"><div class="av ghostav"></div>'+
-            '<div class="cname" style="color:var(--muted)">testing</div></div></td>'+
-            '<td><span class="pill wait">Testing</span></td>'+
-            '<td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>'+
-            '<td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>';
-          tb.appendChild(tr);
-          return;
-        }
-        tr.innerHTML =
-          '<td><div class="cid"><div class="av" style="background:'+c.c+'">'+c.n.charAt(0)+'</div>'+
-          '<div class="cname">'+c.n+'</div></div></td>'+
-          '<td>'+(c.isPool?'<span class="pill live">Pool</span>':'<span class="pill wait">Coin</span>')+'</td>'+
-          '<td class="mono">'+c.s+'</td>'+
-          '<td class="mono">'+(c.live===false?'<span style="color:var(--muted)">—</span>':fmtUSD(c.mc))+'</td>'+
-          '<td class="'+(c.live===false?"mono":(c.ch>=0?"up":"dn"))+'">'+(c.live===false?'<span style="color:var(--muted)">—</span>':((c.ch>=0?"+":"")+c.ch.toFixed(1)+'%'))+'</td>'+
-          '<td class="'+(c.isPool?"":(spread(c)>=0?"up":"dn"))+'">'+(c.isPool?'<span style="color:var(--muted)">—</span>':fmtSpread(spread(c)))+'</td>'+
-          '<td>'+(c.prog===null?'<span style="color:var(--muted)">—</span>':'<div class="bar"><i style="width:'+c.prog+'%"></i></div>')+'</td>'+
-          '<td class="mono" style="color:var(--muted)">'+c.age+'</td>';
-        if(!c.isPool) tr.addEventListener("click", function(){ openCoin(c); });
-        tb.appendChild(tr);
-      })(rows[i]);
-    }
-  }
-
-  function drawChart(coin){
-    var cv = $("chart"); if(!cv) return;
-    var dpr = window.devicePixelRatio || 1;
-    var w = cv.parentNode.clientWidth;
-    if(w <= 0) return;
-    cv.width = w*dpr; cv.height = 170*dpr;
-    cv.style.width = w+"px"; cv.style.height = "170px";
-    var g = cv.getContext("2d");
-    g.setTransform(dpr,0,0,dpr,0,0);
-    var cs = getComputedStyle(document.documentElement);
-    var accent = cs.getPropertyValue("--accent").trim();
-    var line = cs.getPropertyValue("--line").trim();
-    var muted = cs.getPropertyValue("--muted").trim();
-    var seed = 0; for(var k=0;k<coin.n.length;k++) seed += coin.n.charCodeAt(k);
-    var N = 60, pts = [], v = 1;
-    for(var i=0;i<N;i++){
-      seed = (seed*9301 + 49297) % 233280;
-      var r = seed/233280 - 0.42;
-      v = Math.max(0.25, v*(1 + r*0.13 + (coin.ch>0?0.012:-0.006)));
-      pts.push(v);
-    }
-    var min = Math.min.apply(null,pts), max = Math.max.apply(null,pts);
-    var padL=6, padR=6, padT=12, padB=20, H=170;
-    var x = function(i){ return padL + i/(N-1)*(w-padL-padR); };
-    var y = function(val){ return padT + (1-(val-min)/(max-min||1))*(H-padT-padB); };
-    g.clearRect(0,0,w,H);
-    g.strokeStyle = line; g.lineWidth = 1;
-    for(var r2=0;r2<=3;r2++){
-      var gy = padT + r2/3*(H-padT-padB);
-      g.beginPath(); g.moveTo(padL, gy+0.5); g.lineTo(w-padR, gy+0.5); g.stroke();
-    }
-    var grad = g.createLinearGradient(0,padT,0,H-padB);
-    grad.addColorStop(0, accent+"33"); grad.addColorStop(1, accent+"00");
-    g.beginPath(); g.moveTo(x(0), y(pts[0]));
-    for(var i2=1;i2<N;i2++) g.lineTo(x(i2), y(pts[i2]));
-    g.lineTo(x(N-1), H-padB); g.lineTo(x(0), H-padB); g.closePath();
-    g.fillStyle = grad; g.fill();
-    g.beginPath(); g.moveTo(x(0), y(pts[0]));
-    for(var i3=1;i3<N;i3++) g.lineTo(x(i3), y(pts[i3]));
-    g.strokeStyle = accent; g.lineWidth = 2; g.lineJoin = "round"; g.stroke();
-    g.beginPath(); g.arc(x(N-1), y(pts[N-1]), 3.5, 0, Math.PI*2); g.fillStyle = accent; g.fill();
-    g.fillStyle = muted; g.font = "10px 'JetBrains Mono', monospace";
-    g.textAlign = "left"; g.fillText("24h", padL, H-5);
-    g.textAlign = "right"; g.fillText("now", w-padR, H-5);
-  }
-
-  var current = COINS[0], side = "buy";
-  function recalc(){
-    var raw = parseFloat($("amt").value);
-    if(isNaN(raw) || raw <= 0) raw = 0;
-    var st = poolBy(current.s);
-    var depth = st.depth || 1;
-    var si = raw>0 ? (raw/(depth+raw))*100 : 0;
-    var ci = raw>0 ? Math.min(28, (raw/(6 + current.mc/9000))*1.4) : 0;
-    var fee = 0.01;
-    if(side === "buy"){
-      $("r1k").textContent = "SOL → " + current.s;
-      var net = raw*(1-fee);
-      var tok = net*1000000/(1+current.mc/40000)*(1-(si+ci)/100);
-      $("r1v").textContent = raw.toFixed(3) + " SOL";
-      $("r5v").textContent = tok<=0 ? "—" : Math.round(tok).toLocaleString() + " " + current.n;
-    } else {
-      $("r1k").textContent = current.s + " → SOL";
-      var out = raw*(1-fee)*(1-(si+ci)/100);
-      $("r1v").textContent = raw.toLocaleString() + " " + current.n;
-      $("r5v").textContent = out<=0 ? "—" : (out/1000).toFixed(4) + " SOL";
-    }
-    $("r2v").textContent = si.toFixed(2) + "%";
-    $("r3v").textContent = ci.toFixed(2) + "%";
-  }
-  function setSide(s){
-    side = s;
-    $("buyBtn").setAttribute("aria-pressed", s==="buy");
-    $("sellBtn").setAttribute("aria-pressed", s==="sell");
-    $("amtLabel").textContent = s==="buy" ? "Amount in SOL" : "Amount in " + current.n;
-    $("amtUnit").textContent = s==="buy" ? "SOL" : current.n;
-    $("amt").value = s==="buy" ? "1.0" : "100000";
-    $("tradeBtn").textContent = "Connect wallet";
-    recalc();
-  }
-  function openCoin(c){
-    current = c;
-    var st = poolBy(c.s);
-    $("cAv").textContent = c.n.charAt(0);
-    $("cAv").style.background = c.c;
-    $("cName").textContent = c.n;
-    $("cCa").textContent = c.ca;
-    $("cMcap").textContent = fmtUSD(c.mc);
-    $("cChg").textContent = (c.ch>=0?"+":"")+c.ch.toFixed(1)+"%";
-    $("cChg").style.color = c.ch>=0 ? "var(--live)" : "var(--down)";
-    $("cPair").textContent = c.s;
-    var sp = spread(c);
-    $("cVsLabel").textContent = "vs " + c.s;
-    $("cVs").textContent = fmtSpread(sp);
-    $("cVs").style.color = sp>=0 ? "var(--live)" : "var(--down)";
-    $("cDepth").textContent = st.depth + " SOL";
-    $("cProgTxt").textContent = c.prog + "%";
-    $("cProgBar").style.width = c.prog + "%";
-    show("viewCoin");
-    $("appTitle").textContent = c.n;
-    setSide("buy");
-    drawChart(c);
-  }
-
-  var picked = "POOLS";
-  function renderPicker(){
-    var h = $("lPicker"); h.innerHTML = "";
-    for(var i=0;i<POOLS.length;i++){
-      (function(s){
-        var b = document.createElement("button");
-        b.className = "pick"; b.type = "button"; b.disabled = !s.live;
-        b.setAttribute("aria-pressed", s.t===picked);
-        b.innerHTML = '<div class="pk">'+s.t+'</div><div class="pd">'+(s.live ? s.depth+" SOL" : "soon")+'</div>';
-        b.addEventListener("click", function(){ picked = s.t; renderPicker(); sync(); });
-        h.appendChild(b);
-      })(POOLS[i]);
-    }
-  }
-  function sync(){
-    var st = poolBy(picked);
-    $("sName").textContent = $("lName").value || "—";
-    $("sTicker").textContent = ($("lTicker").value || "—").toUpperCase();
-    $("sPair").textContent = picked;
-    $("sDepth").textContent = st.depth + " SOL";
-    var d = parseFloat($("lDev").value);
-    $("sDev").textContent = (isNaN(d)?0:d).toFixed(2) + " SOL";
-  }
-  function goLaunch(t){ if(t) picked = t; renderPicker(); sync(); setTab("launch"); }
-
-  // ---- fund a pool ----
-  var fPicked = "";
-  function renderFPicker(){
-    var h = $("fPicker"); h.innerHTML = "";
-    for(var i=0;i<POOLS.length;i++){
-      (function(s){
-        if(s.live) return;
-        var b = document.createElement("button");
-        b.className = "pick"; b.type = "button";
-        b.setAttribute("aria-pressed", s.t===fPicked);
-        b.innerHTML = '<div class="pk">'+s.t+'</div><div class="pd">no pool</div>';
-        b.addEventListener("click", function(){ fPicked = s.t; $("fMint").value = ""; renderFPicker(); fSync(); });
-        h.appendChild(b);
-      })(POOLS[i]);
-    }
-  }
-  function fSync(){
-    // The pool's name IS the token now — there is nothing to pick from.
-    var custom = $("fMint").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 10);
-    var label = custom || "YOURPOOL";
-    var a = parseFloat($("fSol").value); if(isNaN(a) || a < 0) a = 0;
-    var b = parseFloat($("fToken").value); if(isNaN(b) || b < 0) b = 0;
-    var total = a + b;
-    $("fsTicker").textContent = label;
-    $("fsPair").textContent = label + " / SOL";
-    $("fsEarn") && ($("fsEarn").textContent = "Fees on every coin in " + label);
-    $("fsDepth").textContent = total.toFixed(total % 1 ? 1 : 0) + " SOL";
-    $("fsOpen").textContent = total >= 50 ? "Yes" : "Not yet";
-    $("fsOpen").style.color = total >= 50 ? "var(--live)" : "var(--pending)";
-  }
-  function goFund(t){ if(t) fPicked = t; renderFPicker(); fSync(); setTab("fund"); }
-
-  function show(id){
-    var ids = ["viewHome","viewCoin","viewLaunch","viewFund","viewMine"];
-    for(var i=0;i<ids.length;i++) $(ids[i]).classList.toggle("hidden", ids[i]!==id);
-    window.scrollTo(0,0);
-  }
-  function setTab(v){
-    var tabs = document.querySelectorAll(".tab");
-    for(var i=0;i<tabs.length;i++) tabs[i].setAttribute("aria-selected", tabs[i].getAttribute("data-view")===v);
-    if(v==="home"){ show("viewHome"); $("appTitle").textContent = "Pools"; }
-    else if(v==="fund"){ show("viewFund"); $("appTitle").textContent = "Mint a pool"; }
-    else if(v==="mine"){ show("viewMine"); $("appTitle").textContent = "Your pools"; renderMine(); }
-    else { show("viewLaunch"); $("appTitle").textContent = "Launch"; }
-  }
-  function openApp(){
-    $("landing").classList.add("hidden");
-    $("app").classList.remove("hidden");
-    $("toggleApp").textContent = "Back to site";
-    setTab("home");
-  }
-  function closeApp(){
-    $("app").classList.add("hidden");
-    $("landing").classList.remove("hidden");
-    $("toggleApp").textContent = "Open app";
-    window.scrollTo(0,0);
-  }
-
-  renderPools("poolGridLanding", false);
-  renderPools("poolGridApp", true);
-  renderCoins(); renderPicker(); sync(); renderFPicker(); fSync();
-  renderLeaderboard("lbApp", 4);
-
-  $("toggleApp").addEventListener("click", function(){
-    if($("app").classList.contains("hidden")) openApp(); else closeApp();
-  });
-  $("heroOpen").addEventListener("click", openApp);
-  $("homeLink").addEventListener("click", function(e){ e.preventDefault(); closeApp(); });
-  var tabs = document.querySelectorAll(".tab");
-  for(var i=0;i<tabs.length;i++) tabs[i].addEventListener("click", function(){ setTab(this.getAttribute("data-view")); });
-  $("backBtn").addEventListener("click", function(){ setTab("home"); });
-  $("buyBtn").addEventListener("click", function(){ setSide("buy"); });
-  $("sellBtn").addEventListener("click", function(){ setSide("sell"); });
-  $("amt").addEventListener("input", recalc);
-  var chips = document.querySelectorAll(".chip");
-  for(var j=0;j<chips.length;j++){
-    chips[j].addEventListener("click", function(){ $("amt").value = this.getAttribute("data-amt"); recalc(); });
-  }
-  $("lName").addEventListener("input", sync);
-  $("lTicker").addEventListener("input", sync);
-  $("lDev").addEventListener("input", sync);
-  $("tradeBtn").addEventListener("click", function(){ this.textContent = "Preview only"; });
-  $("launchBtn").addEventListener("click", function(){ this.textContent = "Preview only"; });
-  $("fundBtn").addEventListener("click", function(){ this.textContent = "Preview only"; });
-  $("fSol").addEventListener("input", fSync);
-  $("fToken").addEventListener("input", fSync);
-  $("fMint").addEventListener("input", function(){
-    if(this.value.trim()){
-      var picks = document.querySelectorAll("#fPicker .pick");
-      for(var i=0;i<picks.length;i++) picks[i].setAttribute("aria-pressed","false");
-    } else { renderFPicker(); }
-    fSync();
-  });
-  window.addEventListener("resize", function(){
-    if(!$("viewCoin").classList.contains("hidden")) drawChart(current);
-  });
+  render();
+  setInterval(render, 30000);
 })();
 </script>
