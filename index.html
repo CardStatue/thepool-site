@@ -346,7 +346,6 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <a class="btn btn-ghost" href="/launch">Launch a coin</a>
       <a class="btn btn-ghost" href="#how">How it works</a>
     </div>
-    <div class="tiles" id="tiles"></div>
     <div class="surface-line"></div>
   </div>
 
@@ -441,7 +440,6 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
       <div class="slabel">Pools</div>
       <h2>No menu. You open it.</h2>
     </div>
-    <div class="grid" id="poolGridLanding"></div>
     <p class="rcap" style="margin-top:34px">Every pool is also a coin, so it trades from the moment it exists. Every other launchpad hands you a list to pair against and keeps the fees. Here there is no list &mdash; you mint the pool, and the fees are yours.</p>
   </section>
 
@@ -462,104 +460,3 @@ label.fl{display:block;font-family:var(--font-mono);font-size:10.5px;letter-spac
     </div>
   </footer>
 </main>
-
-<script>
-(function(){
-  "use strict";
-
-  // ── LAUNCH CONFIG ─────────────────────────────────────────────────────────
-  // Only these need filling in. Every number on the page is read live from
-  // DexScreener — nothing is typed in by hand.
-  var POOLS_MINT = "73Xj2kJckvPbXfMcexKFLkB1LNfiNaheKZwtKoxj19k7"; // $POOLS token mint
-  var LANE_COINS = [                   // coins launched into the POOLS lane
-    // { name: "The Pool", mint: "" }
-  ];
-  // ──────────────────────────────────────────────────────────────────────────
-
-  var $ = function(id){ return document.getElementById(id); };
-  function jup(m){ return "https://jup.ag/swap?sell=So11111111111111111111111111111111111111112&buy=" + m; }
-  function dex(m){ return "https://dexscreener.com/solana/" + m; }
-  function usd(n){
-    if(n == null || isNaN(n)) return "—";
-    n = Number(n);
-    if(n >= 1e9) return "$" + (n/1e9).toFixed(2) + "B";
-    if(n >= 1e6) return "$" + (n/1e6).toFixed(2) + "M";
-    if(n >= 1e3) return "$" + (n/1e3).toFixed(1) + "K";
-    return "$" + n.toFixed(0);
-  }
-  function pct(n){
-    if(n == null || isNaN(n)) return "—";
-    n = Number(n);
-    return (n >= 0 ? "+" : "−") + Math.abs(n).toFixed(1) + "%";
-  }
-  function esc(t){ var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
-
-  // Best (deepest) Solana pair for a mint.
-  function stats(mint){
-    return fetch("https://api.dexscreener.com/latest/dex/tokens/" + mint)
-      .then(function(r){ return r.json(); })
-      .then(function(j){
-        var ps = (j.pairs || []).filter(function(p){ return p.chainId === "solana"; });
-        if(!ps.length) return null;
-        ps.sort(function(a,b){ return ((b.liquidity||{}).usd||0) - ((a.liquidity||{}).usd||0); });
-        var p = ps[0];
-        return {
-          name: p.baseToken && p.baseToken.address === mint ? p.baseToken.name : null,
-          symbol: p.baseToken && p.baseToken.address === mint ? p.baseToken.symbol : null,
-          price: p.priceUsd,
-          liq: (p.liquidity||{}).usd,
-          mcap: p.marketCap || p.fdv,
-          ch: (p.priceChange||{}).h24
-        };
-      })
-      .catch(function(){ return null; });
-  }
-
-  function card(label, sub, st, mint, isPool){
-    var el = document.createElement("div");
-    el.className = "pool";
-    el.innerHTML =
-      '<div class="stop"><div><div class="tk">' + esc(label) + '</div>' +
-      '<div class="co">' + esc(sub) + '</div></div>' +
-      '<span class="pill ' + (isPool ? 'live' : 'wait') + '">' + (isPool ? 'Pool' : 'Coin') + '</span></div>' +
-      '<div class="dwrap">' +
-        '<div class="dlab"><span>Liquidity</span><span>' + usd(st && st.liq) + '</span></div>' +
-        '<div class="dlab"><span>Market cap</span><span>' + usd(st && st.mcap) + '</span></div>' +
-        '<div class="dlab"><span>24h</span><span>' + pct(st && st.ch) + '</span></div>' +
-        '<div class="plinks"><a href="' + jup(mint) + '" target="_blank" rel="noopener">Trade</a>' +
-        '<a href="' + dex(mint) + '" target="_blank" rel="noopener">Chart</a></div>' +
-      '</div>';
-    return el;
-  }
-
-  function render(){
-    var grid = $("poolGridLanding"), tiles = $("tiles");
-    if(!POOLS_MINT){ grid.innerHTML = ""; tiles.innerHTML = ""; return; }
-
-    ["tradeNav","tradeHero"].forEach(function(id){
-      var a = $(id); a.href = jup(POOLS_MINT); a.target = "_blank"; a.rel = "noopener";
-    });
-
-    var jobs = [stats(POOLS_MINT)].concat(LANE_COINS.map(function(c){ return stats(c.mint); }));
-    Promise.all(jobs).then(function(res){
-      var pools = res[0];
-      grid.innerHTML = "";
-      grid.appendChild(card("$POOLS", "The Pools", pools, POOLS_MINT, true));
-      LANE_COINS.forEach(function(c, i){
-        var st = res[i+1];
-        var tick = (st && st.symbol) ? "$" + st.symbol : c.name;
-        grid.appendChild(card(tick, c.name + " · in the POOLS lane", st, c.mint, false));
-      });
-
-      tiles.innerHTML =
-        '<a class="tile" href="' + dex(POOLS_MINT) + '" target="_blank" rel="noopener">' +
-        '<div class="tk">$POOLS</div>' +
-        '<div class="dp">' + usd(pools && pools.liq) + ' liquidity · ' + usd(pools && pools.mcap) + ' mcap</div>' +
-        '</a>';
-    });
-  }
-
-  render();
-  setInterval(render, 30000);
-})();
-</script>
